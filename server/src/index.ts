@@ -10,6 +10,8 @@ import morgan from 'morgan';
 
 import router from './router';
 import mongoose from 'mongoose';
+import { UserModel } from './db/users';
+import { dataUser } from './data/index';
 
 //dotenv.config();
 const app = express();
@@ -39,6 +41,7 @@ mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL).then(() => {
   console.log('DB Connection Successful')
   app.use('/', router());
+  //UserModel.insertMany(dataUser);
 })
 .catch(error => {
   console.log(error);

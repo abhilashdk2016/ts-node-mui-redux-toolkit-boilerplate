@@ -2,14 +2,25 @@ import mongoose from 'mongoose';
 
 // User Config
 const UserSchema = new mongoose.Schema({
-  email: { type: String, required: true },
-  username: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  name: { type: String, required: true },
   authentication: {
-    password: { type: String, required: true, select: false },
+    password: { type: String, required: false, select: false },
     salt: { type: String, select: false },
     sessionToken: { type: String, select: false },
   },
-});
+  city: String,
+  state: String,
+  country: String,
+  occupation: String,
+  phoneNumber: String,
+  transactions: Array,
+  role: {
+    type: String,
+    enum: ['user', 'admin', 'superadmin'],
+    default: 'admin'
+  }
+}, { timestamps: true });
 
 export const UserModel = mongoose.model('User', UserSchema);
 
